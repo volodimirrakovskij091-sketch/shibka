@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Шибка — журнал підлітків</title>
+<meta name="description" content="Шибка — незалежний журнал зі статтями підлітків: наука, культура, суспільство.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Inter+Tight:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F1E2B8;--sheet:#F8EDCF;--ink:#2B1A0C;--muted:#7A5A38;--acc:#A5560F;--rule:rgba(43,26,12,.9);--ease:cubic-bezier(.2,.8,.2,1);--H:min(46vh,31vw);--sans:"Inter Tight",system-ui,sans-serif;--serif:"Newsreader",Georgia,serif}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font-family:var(--sans);user-select:none;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}a{color:inherit;text-decoration:none}
+@media(pointer:fine){html,body,button,a,input{cursor:none}}
+.lbl{font:600 10.5px/1 var(--sans);letter-spacing:.09em;text-transform:uppercase}
+.box{display:inline-flex;align-items:center;height:21px;padding:0 8px;border:1px solid var(--rule);white-space:nowrap;transition:background .4s var(--ease),color .4s var(--ease)}
+.box.on,a.box:hover,button.box:hover{background:var(--ink);color:var(--sheet)}
+#grain{position:fixed;inset:0;z-index:200;pointer-events:none;mix-blend-mode:multiply;opacity:.5;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .3 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+#bar{position:fixed;inset:0 0 auto;height:84px;padding:0 32px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;z-index:80}
+.logo{font:400 30px/1 var(--serif);letter-spacing:.03em;color:var(--acc)}.logo small{display:block;font:600 8px var(--sans);letter-spacing:.3em;margin-top:5px;text-transform:uppercase}
+#nav{display:flex;justify-content:center;gap:6px}
+/* home */
+#tabs{position:fixed;left:50%;transform:translateX(-50%);top:calc(50% - var(--H)/2 - 86px);display:flex;z-index:10;white-space:nowrap}
+#ind{position:absolute;left:0;top:0;height:23px;background:var(--acc);transition:width .6s var(--ease),transform .6s var(--ease)}
+.tb{position:relative;z-index:1;height:23px;padding:0 11px;border:1px solid var(--rule);margin-left:-1px;transition:color .45s}.tb.on{color:#fff}
+#shelf{position:fixed;left:0;right:0;top:calc(50% - var(--H)/2 - 40px);height:calc(var(--H) + 80px);perspective:2200px;perspective-origin:50% 50%;touch-action:pan-y;z-index:5}
+#st{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+.tape{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;will-change:transform}
+.f{position:absolute;top:calc(var(--H)/-2);height:var(--H);backface-visibility:hidden;border-radius:2px;overflow:hidden;background:linear-gradient(160deg,var(--c1),var(--c2));color:var(--tx)}
+.f::before,#dpz::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.42) 0%,rgba(255,255,255,.1) 26%,transparent 40%,transparent 62%,rgba(255,255,255,.18) 100%),linear-gradient(to bottom,rgba(255,255,255,.18),transparent 12%)}
+.f::after{content:"";position:absolute;inset:0;z-index:3;background:#000;opacity:var(--shade,0);pointer-events:none}
+.sp{width:var(--ws);left:calc(var(--ws)/-2);transform:translateZ(calc(var(--d)/2));display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:9% 0;border:1px solid rgba(0,0,0,.25)}
+.sp b{writing-mode:vertical-rl;font:400 calc(var(--ws)*.4)/1 var(--serif);max-height:80%;overflow:hidden;white-space:nowrap}
+.sp .lbl{writing-mode:vertical-rl;font-size:calc(var(--ws)*.14)}
+.cv{width:var(--d);left:calc(var(--d)/-2);transform:rotateY(90deg) translateZ(calc(var(--ws)/2));box-shadow:0 30px 60px -28px rgba(43,26,12,.55);background:var(--ov,linear-gradient(160deg,var(--c1),var(--c2)));background-size:cover;background-position:center;color:var(--tc,var(--tx))}
+.ci{display:flex;flex-direction:column;justify-content:space-between;padding:calc(var(--d)*.07);gap:calc(var(--d)*.04)}
+.ci .lbl{font-size:calc(var(--d)*.032)}.ci svg{flex:1;min-height:0;width:100%}
+.ci .mh{font:400 calc(var(--d)*.2)/.9 var(--serif);letter-spacing:-.03em;text-align:center;border-bottom:1px solid currentColor;padding-bottom:calc(var(--d)*.02)}.ci .sp2{flex:1}
+.ci h3{font:400 calc(var(--d)*.115)/1 var(--serif);letter-spacing:-.01em;word-break:break-word}.ci em{font:italic 400 calc(var(--d)*.05)/1.1 var(--serif)}
+#play{position:fixed;width:42px;height:42px;margin:-21px;border:1px solid var(--acc);border-radius:50%;background:rgba(241,226,184,.75);color:var(--acc);display:grid;place-items:center;z-index:12;transform:scale(0)}
+#play i{border-left:12px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+#cap{position:fixed;left:50%;top:calc(50% + var(--H)/2 + 30px);transform:translateX(-50%);display:flex;flex-direction:column;gap:9px;pointer-events:none;z-index:10;text-align:center}
+.cl{position:relative;overflow:hidden;width:min(92vw,760px)}.cl span{position:absolute;left:0;right:0;top:0}
+.cl.t{height:36px;font:400 31px/1.12 var(--serif);letter-spacing:-.01em}.cl.s{height:12px;color:var(--acc)}.cl.s span{font:500 10.5px/1 var(--sans);letter-spacing:.09em;text-transform:uppercase}.cl.y{height:14px;font:500 11px/1.2 var(--sans);letter-spacing:.08em}
+.arr{position:fixed;top:calc(50% + var(--H)/2 + 40px);width:44px;height:44px;display:grid;place-items:center;z-index:12}#pv{left:20px}#nx{right:20px}
+#foot{position:fixed;left:32px;right:32px;bottom:26px;display:flex;justify-content:space-between;z-index:10}
+#empty{position:fixed;inset:0;display:none;place-items:center;z-index:6}
+/* views */
+.view{position:fixed;inset:0;z-index:50;background:var(--sheet);overflow:auto;padding:120px 6vw 80px;visibility:hidden;transform:translateY(100%);transition:transform .8s var(--ease),visibility 0s .8s;user-select:text}
+.view.on{visibility:visible;transform:none;transition:transform .8s var(--ease)}
+.w{max-width:980px;margin:0 auto}.w h1{font:400 clamp(40px,6vw,76px)/1 var(--serif);letter-spacing:-.025em;margin-bottom:28px}
+.w h2{font:400 28px/1.1 var(--serif);margin:34px 0 10px}.w p{font:400 18px/1.55 var(--serif);max-width:62ch;margin-bottom:12px}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:20px}
+.card{border:1px solid var(--rule);padding:18px;display:flex;flex-direction:column;gap:10px;align-items:flex-start;background:linear-gradient(160deg,rgba(227,167,47,.18),transparent)}
+.card h3{font:400 24px/1.1 var(--serif)}.card p{font-size:16px;margin:0}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--rule);padding:10px 12px;position:relative;overflow:hidden;margin-top:8px;font:500 13px var(--sans)}
+.opt i{position:absolute;left:0;top:0;bottom:0;background:rgba(165,86,15,.28);width:0;transition:width .9s var(--ease)}.opt span{position:relative}
+input[type=email]{height:44px;border:1px solid var(--rule);background:none;padding:0 14px;font:500 14px var(--sans);color:var(--ink);min-width:min(320px,100%);outline:0;user-select:text}
+.btn{height:44px;padding:0 20px;border:1px solid var(--acc);color:var(--acc);display:inline-flex;align-items:center;margin-top:10px;transition:background .4s,color .4s}.btn:hover{background:var(--acc);color:#fff}
+/* detail */
+.detail{position:fixed;inset:0;z-index:150;background:var(--sheet);visibility:hidden;padding:110px 6vw 56px 7vw;user-select:text}
+.dg{height:100%;display:grid;grid-template-columns:1fr 1fr;gap:4vw}
+#dtx{overflow:auto;max-width:560px;margin:auto;max-height:100%;display:flex;flex-direction:column;gap:14px;padding-right:8px}
+#dtx h2{font:400 clamp(40px,5vw,76px)/1 var(--serif);letter-spacing:-.025em}#dtx p{font:400 17px/1.55 var(--serif)}#dtx .lead{font-style:italic;font-size:20px;color:var(--acc)}
+.m{overflow:hidden}.m>*{display:block}
+#dpz{height:min(100%,78vh);aspect-ratio:474/900;margin:auto;--d:calc(min(78vh,100vh)*.527);width:auto;border-radius:3px;box-shadow:0 30px 60px -28px rgba(43,26,12,.55);position:relative;overflow:hidden;background:var(--ov,linear-gradient(160deg,var(--c1),var(--c2)));background-size:cover;background-position:center;color:var(--tc,var(--tx))}
+#x{position:absolute;left:32px;top:31px;height:32px}
+/* cursor */
+#cur{position:fixed;left:0;top:0;width:58px;height:58px;margin:-29px;z-index:300;pointer-events:none;display:none}
+@media(pointer:fine){#cur{display:block}}
+#cur b{position:absolute;inset:0;border:1.5px solid var(--ink);border-radius:50%;transition:transform .5s var(--ease),background .4s,border-color .4s}
+#cur u{position:absolute;left:26px;top:26px;width:6px;height:6px;border-radius:50%;background:var(--ink);transition:transform .4s var(--ease)}
+#cur s{position:absolute;inset:0;display:grid;place-items:center;text-align:center;text-decoration:none;color:#fff;font:600 10px/1.25 var(--sans);letter-spacing:.1em;transform:scale(0);transition:transform .45s var(--ease)}
+#cur.spine b{transform:scale(.72)}#cur.btn b{transform:scale(.55)}#cur.btn u{transform:scale(0)}
+#cur.open b{transform:scale(1.75);background:var(--acc);border-color:var(--acc)}#cur.open u{transform:scale(0)}#cur.open s{transform:scale(1)}
+@media(max-width:767px){
+:root{--H:min(60vw,40svh)}
+#bar{height:96px;padding:6px 16px 0;grid-template-columns:1fr auto;grid-template-rows:auto auto;gap:8px 12px;align-content:center}
+.logo{font-size:24px}#nav{grid-column:1/-1;grid-row:2;justify-content:flex-start;overflow-x:auto;scrollbar-width:none}.lbl{font-size:9px}.box{height:19px;padding:0 6px}
+#tabs{top:calc(50% - var(--H)/2 - 64px);max-width:100vw;overflow:hidden}.tb{padding:0 6px;font-size:9px}
+.cl.t{font-size:24px;height:28px}.arr{left:auto;top:calc(50% + var(--H)/2 + 30px)}#pv{left:6px}#nx{right:6px}#foot{left:16px;right:16px;bottom:18px}
+.view{padding:112px 22px 60px}.detail{padding:84px 22px 40px;overflow:auto}.dg{display:flex;flex-direction:column;height:auto;gap:24px}
+#dpz{order:-1;height:46svh;--d:calc(46svh*.527)}#dtx{max-height:none;overflow:visible}#x{left:16px;top:21px}}
+</style></head><body>
+<header id="bar"><a class="logo" href="#articles">Шибка<small>teen magazine</small></a><nav id="nav" aria-label="Menu"></nav><button class="box lbl" id="lg">EN</button></header>
+<nav id="tabs" aria-label="Categories"><i id="ind"></i></nav>
+<section id="shelf" aria-label="Articles"><div id="st"></div></section>
+<button id="play" aria-label="Open"><i></i></button>
+<div id="cap" aria-live="polite"><div class="cl t"></div><div class="cl s"></div><div class="cl y"></div></div>
+<div id="empty" class="lbl" data-i="empty"></div>
+<button class="arr" id="pv" aria-label="Previous"><svg width="18" height="10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 1L1 5l4 4M1 5h16"/></svg></button>
+<button class="arr" id="nx" aria-label="Next"><svg width="18" height="10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M13 1l4 4-4 4M17 5H1"/></svg></button>
+<footer id="foot" class="lbl"><span data-i="rights"></span><span><a href="mailto:shubkaua7@gmail.com">EMAIL</a></span></footer>
+<main id="views"></main>
+<div class="detail" id="det" role="dialog" aria-modal="true"><button class="box lbl" id="x" data-i="close"></button><div class="dg"><div id="dtx"></div><div id="dpz" class="ci"></div></div></div>
+<div id="cur"><b></b><u></u><s><span data-i="curopen"></span></s></div><div id="grain"></div>
+<script>
+/* ============ НАЛАШТУВАННЯ / SETTINGS ============ */
+const CFG={email:'shubkaua7@gmail.com',donate:'',iban:'UA00 0000 0000 0000 0000 0000 00000',formEndpoint:''}; // donate: посилання (Monobank/Patreon…); formEndpoint: Formspree тощо
+/* ============ ДАНІ / DATA — додавайте нові статті сюди ============ */
+// cat: science|culture|society|tech · issue: номер випуску · p: палітра 0-4
+// img (необов'язково): шлях до малюнка обкладинки, напр. img:'img/a1.jpg' (файл лежить у папці img у репозиторії). Без img малюється візерунок.
+const ARTICLES=[
+{id:'a1',cat:'science',issue:1,date:'2026-09',author:'Оля К.',age:15,p:0,title:{uk:'Чому небо блакитне',en:'Why the Sky Is Blue'},lead:{uk:'Просте питання, яке має дивовижну відповідь.',en:'A simple question with a surprising answer.'},body:{uk:['Це приклад статті. Замініть цей текст справжнім матеріалом вашого автора.','Кожна наступна стаття — це новий запис у списку ARTICLES.'],en:['This is a sample article. Replace it with your author’s real text.','Each new article is one more entry in the ARTICLES list.']}},
+{id:'a2',cat:'culture',issue:1,date:'2026-09',author:'Максим Д.',age:16,p:1,title:{uk:'Музика гаражів',en:'Garage Music'},lead:{uk:'Де народжуються нові гурти.',en:'Where new bands are born.'},body:{uk:['Приклад тексту про культуру та підліткові гурти.'],en:['Sample text about culture and teen bands.']}},
+{id:'a3',cat:'society',issue:2,date:'2026-10',author:'Соломія Р.',age:14,p:2,title:{uk:'Тиша в класі',en:'Silence in Class'},lead:{uk:'Чому ми боїмося піднімати руку.',en:'Why we are afraid to raise a hand.'},body:{uk:['Приклад тексту про суспільство та шкільне життя.'],en:['Sample text about society and school life.']}},
+{id:'a4',cat:'tech',issue:2,date:'2026-10',author:'Артем Л.',age:17,p:3,title:{uk:'Штучний інтелект і ми',en:'AI and Us'},lead:{uk:'Друг, помічник чи суперник?',en:'Friend, helper or rival?'},body:{uk:['Приклад тексту про технології.'],en:['Sample text about technology.']}},
+{id:'a5',cat:'science',issue:2,date:'2026-10',author:'Іванна М.',age:15,p:4,title:{uk:'Життя бджіл',en:'The Life of Bees'},lead:{uk:'Маленька держава у вулику.',en:'A tiny state inside a hive.'},body:{uk:['Приклад тексту про природу.'],en:['Sample text about nature.']}},
+{id:'a6',cat:'culture',issue:3,date:'2026-11',author:'Данило П.',age:16,p:2,title:{uk:'Кіно без бюджету',en:'No-Budget Cinema'},lead:{uk:'Знімаємо фільм на телефон.',en:'Shooting a film on a phone.'},body:{uk:['Приклад тексту про кіно.'],en:['Sample text about film.']}}];
+const PAL=[['#F5D56B','#E3A72F',0],['#EDB85A','#B96A1E',0],['#C98A3B','#7A4318',1],['#8A5A2B','#3A220F',1],['#F2DC9C','#D49B4A',0]];
+const ISSUES=[{n:1,date:'2026-09',t:{uk:'Початок',en:'The Beginning'}},{n:2,date:'2026-10',t:{uk:'Голоси',en:'Voices'}},{n:3,date:'2026-11',t:{uk:'Нові горизонти',en:'New Horizons'}}];
+const POLLS=[{id:'p1',q:{uk:'Про що вам найцікавіше читати?',en:'What do you like to read about most?'},o:[{t:{uk:'Наука',en:'Science'},v:12},{t:{uk:'Культура',en:'Culture'},v:18},{t:{uk:'Суспільство',en:'Society'},v:9},{t:{uk:'Технології',en:'Tech'},v:14}]},
+{id:'p2',q:{uk:'Як часто ви хочете новий випуск?',en:'How often do you want a new issue?'},o:[{t:{uk:'Щотижня',en:'Weekly'},v:7},{t:{uk:'Раз на місяць',en:'Monthly'},v:21}]}];
+const TEAM=[{n:'Ім’я Прізвище',r:{uk:'Головна редакторка',en:'Editor-in-chief'}},{n:'Ім’я Прізвище',r:{uk:'Дизайнер',en:'Designer'}},{n:'Ім’я Прізвище',r:{uk:'Розробник сайту',en:'Web developer'}}];
+const PARTNERS=[{n:'Назва партнера',y:2026,d:{uk:'Короткий опис спільного проєкту.',en:'Short description of the joint project.'}},{n:'Назва проєкту',y:2026,d:{uk:'Де ми брали участь і що зробили.',en:'Where we took part and what we did.'}}];
+const D={uk:{articles:'Статті',issues:'Випуски',polls:'Опитування',about:'Про нас',partners:'Партнери',support:'Підтримати',subscribe:'Розсилка',all:'Усі',science:'Наука',culture:'Культура',society:'Суспільство',tech:'Технології',close:'Закрити',curopen:'ВІДКРИТИ',issue:'Випуск',rights:'© Шибка. Усі права захищено.',empty:'Тут поки немає статей',read:'Читати випуск',votes:'голосів',
+aboutT:'Про нас',who:'Хто ми',whoP:'Шибка — це команда підлітків, які пишуть для підлітків. Тут ваш текст — це не домашнє завдання, а голос. (Замініть на свій текст.)',hist:'Наша історія',histP:'Розкажіть, як усе почалося: ідея, перший випуск, перші читачі.',miss:'Місія',missP:'Дати підліткам місце, де їх почують, і показати, що їхні думки важливі.',why:'Чому нас варто читати',whyP:'Чесно, без нудного тону, від людей вашого віку — і про те, що справді хвилює.',team:'Команда',
+partT:'Партнери та проєкти',supT:'Підтримати Шибку',supP:'Ми робимо журнал безкоштовним. Ваш внесок допомагає випускати нові номери та підтримувати авторів.',donate:'Підтримати',ibanL:'Реквізити',subT:'Розсилка',subP:'Отримуйте лист, коли виходить новий випуск.',email:'Ваш email',send:'Підписатися',thanks:'Дякуємо! Перевірте пошту.',contact:'Контакт'},
+en:{articles:'Articles',issues:'Issues',polls:'Polls',about:'About',partners:'Partners',support:'Support',subscribe:'Newsletter',all:'All',science:'Science',culture:'Culture',society:'Society',tech:'Tech',close:'Close',curopen:'OPEN',issue:'Issue',rights:'© Shybka. All rights reserved.',empty:'No articles here yet',read:'Read issue',votes:'votes',
+aboutT:'About us',who:'Who we are',whoP:'Shybka is a team of teenagers writing for teenagers. Here your text is not homework, it is a voice. (Replace with your text.)',hist:'Our story',histP:'Tell how it started: the idea, the first issue, the first readers.',miss:'Mission',missP:'To give teens a place to be heard and show that their thoughts matter.',why:'Why read us',whyP:'Honest, never boring, written by people your age — about what really matters.',team:'Team',
+partT:'Partners & projects',supT:'Support Shybka',supP:'We keep the magazine free. Your donation helps publish new issues and support our authors.',donate:'Donate',ibanL:'Bank details',subT:'Newsletter',subP:'Get an email whenever a new issue comes out.',email:'Your email',send:'Subscribe',thanks:'Thank you! Check your inbox.',contact:'Contact'}};
+/* ============ ЯДРО / CORE ============ */
+const $=id=>document.getElementById(id),mod=(a,b)=>((a%b)+b)%b,ss=x=>x*x*(3-2*x),R=matchMedia('(prefers-reduced-motion:reduce)').matches,du=x=>R?1:x;
+let lang='uk';try{lang=localStorage.lang||(navigator.language.startsWith('uk')?'uk':'en')}catch(e){}
+const L=o=>o[lang],t=k=>D[lang][k];
+const F={cat:'all',issue:null};let list=[],n=0,M=0,tapes=[],H,ws,d,gap,s=0,T=0,hover=-1,act=-1,mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my,tiltX=0,tiltY=0,onCover=false,isOpen=false,viewOpen=false,drag=false,wt;
+const st=$('st'),cur=$('cur'),cats=['all','science','culture','society','tech'];
+function art(i){const a=20+i*13%50,b=30+i*17%40;return`<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><rect width="100" height="100" fill="rgba(0,0,0,.08)"/><circle cx="${a+10}" cy="${b}" r="${18+i*3%12}" fill="currentColor" opacity=".85"/><path d="M0 ${70+i*3%15}L35 ${50+b/4}L65 80L100 ${55+i*4%10}V100H0Z" fill="currentColor" opacity=".55"/><rect x="${b}" y="${a}" width="14" height="46" fill="currentColor" opacity=".3"/></svg>`}
+const cvH=(a,i)=>`<span class="mh">Шибка</span><span class="lbl">№${a.issue} · ${t(a.cat)}</span>${a.img?'<i class="sp2"></i>':art(i)}<h3>${L(a.title)}</h3><em>${a.author}, ${a.age}</em>`;
+const sty=a=>{const p=PAL[a.p%5];return`--c1:${p[0]};--c2:${p[1]};--tx:${p[2]?'#F8EDCF':'#2B1A0C'}`+(a.img?`;--tc:#FFF6DC;--ov:linear-gradient(to top,rgba(30,15,0,.78),transparent 52%),linear-gradient(to bottom,rgba(30,15,0,.5),transparent 28%),url("${encodeURI(a.img)}")`:'')};
+function measure(){const p=document.createElement('div');p.style.cssText='position:fixed;left:-99px;height:var(--H)';document.body.append(p);H=p.offsetHeight;p.remove();ws=H*142/840;d=H*474/900;gap=H*.03;st.style.setProperty('--ws',ws+'px');st.style.setProperty('--d',d+'px')}
+function build(keep){list=ARTICLES.filter(a=>(F.cat=='all'||a.cat==F.cat)&&(!F.issue||a.issue==F.issue));n=list.length;tapes=[];st.innerHTML='';$('empty').style.display=n?'none':'grid';
+ if(!n){['t','s','y'].forEach(c=>document.querySelector('.cl.'+c).innerHTML='');act=-1;return}
+ let c=Math.max(3,Math.ceil(30/n));if(c%2==0)c++;M=n*c;
+ for(let v=0;v<M;v++){const a=list[v%n],i=v%n,e=document.createElement('div');e.className='tape';e.style.cssText=sty(a);
+  e.innerHTML=`<div class="f sp"><b>${L(a.title)}</b><span class="lbl">Шибка</span></div><div class="f cv ci">${cvH(a,i)}</div>`;
+  const o={el:e,v,lift:0,r:0,sp:e.children[0],cv:e.children[1],hid:false};e._o=o;
+  e.addEventListener('pointerenter',()=>hover=v);e.addEventListener('pointerleave',()=>hover=-1);tapes.push(o);st.append(e)}
+ if(!keep){s=T=Math.floor(c/2)*n+Math.min(n-1,Math.floor(n/2))}act=-1;cap(0,true)}
+function cap(dir,first){if(!n)return;const i=mod(Math.round(s),n);if(i==act&&!first)return;act=i;const a=list[i];
+ const row=[['t',L(a.title)],['s',`${t(a.cat)} / №${a.issue} / ${a.author}`],['y',a.date.slice(0,4)+' · '+a.date.slice(5)+'']];
+ row.forEach(([c,x])=>{const el=document.querySelector('.cl.'+c),sp=document.createElement('span');sp.textContent=x;
+  [...el.children].forEach(o=>{if(o._l)return;o._l=1;if(R){o.remove();return}const an=o.animate([{transform:getComputedStyle(o).transform},{transform:`translateY(${-dir*105}%)`}],{duration:650,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'});an.onfinish=()=>o.remove()});
+  el.append(sp);if(!first&&!R)sp.animate([{transform:`translateY(${(dir||1)*105}%)`},{transform:'none'}],{duration:650,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'})})}
+function tabs(){const tb=$('tabs');tb.innerHTML='<i id="ind"></i>'+cats.map(c=>`<button class="tb lbl ${F.cat==c?'on':''}" data-c="${c}">${t(c)}</button>`).join('')+(F.issue?`<button class="tb lbl" data-c="x" style="color:var(--acc)">№${F.issue} ✕</button>`:'');
+ tb.querySelectorAll('.tb').forEach(b=>b.onclick=()=>{if(b.dataset.c=='x')F.issue=null;else F.cat=b.dataset.c;tabs();build()});
+ const on=tb.querySelector('.on'),i=$('ind');if(on){i.style.width=on.offsetWidth+'px';i.style.transform=`translateX(${on.offsetLeft}px)`}}
+const Fx=r=>{const a=Math.abs(r),B=a<1?(r+Math.sin(Math.PI*r)/Math.PI)/2:Math.sign(r)*.5;return r*(ws+gap)+(d-ws+1.6*gap)*B};
+let last=performance.now();
+function tick(now){const dt=Math.min(.05,(now-last)/1000);last=now;const W=innerWidth,vh=innerHeight,cyS=vh/2;
+ if(n){const k=R?1:drag?18:5.2;s+=(T-s)*(1-Math.exp(-k*dt));if(Math.abs(T-s)<1e-4)s=T;if(s>M){s-=M;T-=M}if(s<0){s+=M;T+=M}
+  cap(Math.sign(T-s)||1);
+  const dx=mx-W/2,dy=my-cyS;onCover=!isOpen&&!viewOpen&&Math.abs(dx)<.55*d&&Math.abs(dy)<.55*H&&Math.abs(T-s)<.3;
+  const ty=onCover?dx/(.55*d)*9:dx/W*5,tx=onCover?-dy/(H/2)*6:0,kt=R?1:1-Math.exp(-7*dt);tiltY+=(ty-tiltY)*kt;tiltX+=(tx-tiltX)*kt;
+  tapes.forEach(o=>{const r=mod(o.v-s+M/2,M)-M/2,ar=Math.abs(r);o.r=r;const x=Fx(r),hid=Math.abs(x)>W/2+1.5*d;
+   if(hid!=o.hid){o.hid=hid;o.el.style.visibility=hid?'hidden':'visible'}if(hid)return;
+   o.lift+=((hover==o.v&&ar>.5?1:0)-o.lift)*(R?1:1-Math.exp(-12*dt));const op=ss(Math.max(0,1-ar));
+   o.el.style.transform=`translate3d(${x}px,${-op*.025*H-o.lift*.045*H}px,${op*.2*H}px) rotateZ(${-4.5*op}deg) rotateX(${tiltX*op}deg) rotateY(${-90*op+tiltY*op}deg)`;
+   o.el.style.zIndex=Math.round(100-ar*4);o.sp.style.setProperty('--shade',op*.55);o.cv.style.setProperty('--shade',(1-op)*.5)});
+  const pr=isOpen||viewOpen?0:ss(Math.max(0,1-Math.abs(T-s)*3)),p=$('play');p.style.left=W/2-.5*d-6+'px';p.style.top=cyS+.36*H+'px';p.style.transform=`scale(${pr})`}
+ cx+=(mx-cx)*(1-Math.exp(-16*dt));cy+=(my-cy)*(1-Math.exp(-16*dt));cur.style.transform=`translate3d(${cx}px,${cy}px,0)`;
+ cur.classList.toggle('open',onCover);requestAnimationFrame(tick)}
+/* ============ ВХІД / INPUT ============ */
+const go=v=>{if(isOpen||viewOpen||!n)return;T=v};
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;const el=e.target,tp=el.closest&&el.closest('.tape');
+ cur.classList.toggle('btn',!!(el.closest&&el.closest('button,a,input,.opt'))&&!tp);cur.classList.toggle('spine',!!tp&&!onCover&&!isOpen&&!viewOpen)});
+$('pv').onclick=()=>go(Math.round(T)-1);$('nx').onclick=()=>go(Math.round(T)+1);
+addEventListener('wheel',e=>{if(isOpen||viewOpen||!n)return;const dl=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;T+=dl/(ws+gap)*.5;clearTimeout(wt);wt=setTimeout(()=>T=Math.round(T),160)},{passive:true});
+let dx0=0,T0=0,dn=false;
+$('shelf').addEventListener('pointerdown',e=>{dn=true;dx0=e.clientX;T0=T;drag=false});
+addEventListener('pointermove',e=>{if(!dn||isOpen||viewOpen)return;const dx=e.clientX-dx0;if(!drag&&Math.abs(dx)>5)drag=true;if(drag)T=T0-dx/(ws+gap)});
+addEventListener('pointerup',()=>{if(dn&&drag)T=Math.round(T);dn=false;setTimeout(()=>drag=false,0)});
+st.addEventListener('click',e=>{if(drag||isOpen||viewOpen)return;const tp=e.target.closest('.tape');if(!tp)return;const o=tp._o;if(Math.abs(o.r)<.5)openA();else T=Math.round(T+o.r)});
+$('play').onclick=()=>openA();
+addEventListener('keydown',e=>{if(e.key=='Escape')closeA();if(isOpen||viewOpen)return;if(e.key=='ArrowLeft')go(Math.round(T)-1);if(e.key=='ArrowRight')go(Math.round(T)+1);if(e.key=='Enter'&&document.activeElement==document.body&&n)openA()});
+/* ============ СТАТТЯ / DETAIL ============ */
+const det=$('det');let ani=[];
+function coverRect(){let b=null;tapes.forEach(o=>{if(!b||Math.abs(o.r)<Math.abs(b.r))b=o});return b.cv.getBoundingClientRect()}
+const clipOf=r=>`inset(${r.top}px ${innerWidth-r.right}px ${innerHeight-r.bottom}px ${r.left}px round 3px)`;
+function openA(){if(!n||isOpen)return;T=Math.round(T);const a=list[mod(Math.round(T),n)],i=mod(Math.round(T),n),r=coverRect();isOpen=true;
+ const p=PAL[a.p%5];$('dpz').style.cssText=sty(a);$('dpz').innerHTML=cvH(a,i);
+ $('dtx').innerHTML=[`<span class="lbl" style="color:var(--acc)">${t(a.cat)} / №${a.issue}</span>`,`<h2>${L(a.title)}</h2>`,`<span class="lbl" style="color:var(--muted)">${a.author}, ${a.age} · ${a.date}</span>`,`<p class="lead">${L(a.lead)}</p>`,...L(a.body).map(x=>`<p>${x}</p>`)].map(x=>`<div class="m">${x}</div>`).join('');
+ det.style.visibility='visible';det.style.transformOrigin=`${(r.left+r.right)/2}px ${(r.top+r.bottom)/2}px`;
+ ani=[det.animate([{clipPath:clipOf(r),transform:'rotate(-4.5deg)'},{clipPath:'inset(0 0 0 0 round 0)',transform:'rotate(0)'}],{duration:du(1050),easing:'cubic-bezier(.76,0,.18,1)',fill:'both'})];
+ document.querySelectorAll('#dtx .m>*').forEach((el,k)=>ani.push(el.animate([{transform:'translateY(110%)'},{transform:'none'}],{duration:du(900),delay:R?0:620+k*75,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'})));
+ ani.push($('dpz').animate([{clipPath:'inset(100% 0 0 0)'},{clipPath:'inset(0)'}],{duration:du(1250),delay:R?0:520,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'}));
+ cur.classList.remove('open','spine')}
+function closeA(){if(!isOpen)return;const r=coverRect();isOpen=false;
+ const an=det.animate([{clipPath:'inset(0 0 0 0 round 0)',transform:'rotate(0)'},{clipPath:clipOf(r),transform:'rotate(-4.5deg)'}],{duration:du(850),easing:'cubic-bezier(.76,0,.18,1)',fill:'both'});
+ an.onfinish=()=>{det.style.visibility='hidden';ani.forEach(a=>a.cancel());an.cancel()}}
+$('x').onclick=closeA;
+/* ============ СТОРІНКИ / VIEWS ============ */
+const NAV=['articles','issues','polls','about','partners','support','subscribe'];
+function votes(p){let v={};try{v=JSON.parse(localStorage['v_'+p.id]||'null')||{}}catch(e){}return v}
+function pollH(p){const mine=votes(p),has=mine.i!=null,tot=p.o.reduce((a,o,i)=>a+o.v+(mine.i==i?1:0),0);
+ return`<div class="card" style="width:100%"><h3>${L(p.q)}</h3><div style="width:100%">${p.o.map((o,i)=>{const v=o.v+(mine.i==i?1:0);return`<button class="opt" data-p="${p.id}" data-i="${i}"><i style="width:${has?Math.round(v/tot*100):0}%"></i><span>${L(o.t)}${has?' — '+Math.round(v/tot*100)+'%':''}</span></button>`}).join('')}</div>${has?`<span class="lbl" style="color:var(--muted)">${tot} ${t('votes')}</span>`:''}</div>`}
+function views(){const V={
+issues:`<h1>${t('issues')}</h1><div class="g">${ISSUES.map(i=>`<div class="card"><span class="lbl" style="color:var(--acc)">${t('issue')} №${i.n} · ${i.date}</span><h3>${L(i.t)}</h3><p>${ARTICLES.filter(a=>a.issue==i.n).length} ${lang=='uk'?'статей':'articles'}</p><button class="box lbl" data-is="${i.n}">${t('read')}</button></div>`).join('')}</div>`,
+polls:`<h1>${t('polls')}</h1><div class="g" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">${POLLS.map(pollH).join('')}</div>`,
+about:`<h1>${t('aboutT')}</h1><h2>${t('who')}</h2><p>${t('whoP')}</p><h2>${t('hist')}</h2><p>${t('histP')}</p><h2>${t('miss')}</h2><p>${t('missP')}</p><h2>${t('why')}</h2><p>${t('whyP')}</p><h2>${t('team')}</h2><div class="g">${TEAM.map(m=>`<div class="card"><h3>${m.n}</h3><span class="lbl" style="color:var(--acc)">${L(m.r)}</span></div>`).join('')}</div>`,
+partners:`<h1>${t('partT')}</h1><div class="g">${PARTNERS.map(p=>`<div class="card"><span class="lbl" style="color:var(--acc)">${p.y}</span><h3>${p.n}</h3><p>${L(p.d)}</p></div>`).join('')}</div>`,
+support:`<h1>${t('supT')}</h1><p>${t('supP')}</p>${CFG.donate?`<a class="btn lbl" href="${CFG.donate}" target="_blank" rel="noopener">${t('donate')}</a>`:''}<div class="card" style="margin-top:22px;max-width:420px"><span class="lbl" style="color:var(--acc)">${t('ibanL')}</span><h3 style="font-size:20px">${CFG.iban}</h3></div>`,
+subscribe:`<h1>${t('subT')}</h1><p>${t('subP')}</p><form id="sf"><input type="email" required placeholder="${t('email')}" id="se"> <button class="btn lbl" type="submit">${t('send')}</button></form><p id="sm" class="lbl" style="margin-top:14px"></p><p style="margin-top:30px">${t('contact')}: <a href="mailto:${CFG.email}" style="color:var(--acc)">${CFG.email}</a></p>`};
+ $('views').innerHTML=NAV.slice(1).map(k=>`<section class="view" id="v-${k}" aria-label="${k}"><div class="w">${V[k]}</div></section>`).join('');
+ document.querySelectorAll('[data-is]').forEach(b=>b.onclick=()=>{F.issue=+b.dataset.is;F.cat='all';tabs();build();nav('articles')});
+ document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const p=POLLS.find(x=>x.id==b.dataset.p);if(votes(p).i!=null)return;try{localStorage['v_'+p.id]=JSON.stringify({i:+b.dataset.i})}catch(e){}const k=location.hash;views();route()});
+ const sf=$('sf');if(sf)sf.onsubmit=async e=>{e.preventDefault();const m=$('se').value;
+  if(CFG.formEndpoint){try{await fetch(CFG.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:m})});$('sm').textContent=t('thanks')}catch(x){location.href=`mailto:${CFG.email}?subject=Subscribe&body=${m}`}}
+  else{location.href=`mailto:${CFG.email}?subject=${encodeURIComponent('Підписка / Subscribe')}&body=${encodeURIComponent(m)}`;$('sm').textContent=t('thanks')}}}
+let cv=location.hash.slice(1);if(!NAV.includes(cv))cv='articles';
+function nav(h){try{history.replaceState(null,'','#'+h)}catch(e){}route(h)}
+function route(h){h=h||cv;cv=h;viewOpen=h!='articles'&&NAV.includes(h);
+ document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id=='v-'+h));
+ document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+h));if(!n)return;
+ document.querySelector('#nav a.on')?.scrollIntoView?.({inline:'center',block:'nearest'})}
+function ui(){document.documentElement.lang=lang;document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
+ $('nav').innerHTML=NAV.map(k=>`<a class="box lbl" href="#${k}">${t(k)}</a>`).join('');$('lg').textContent=lang=='uk'?'EN':'UA';tabs();views();route()}
+$('lg').onclick=()=>{lang=lang=='uk'?'en':'uk';try{localStorage.lang=lang}catch(e){}if(isOpen)closeA();ui();const keep=T,ks=s;build(true);T=keep;s=ks}
+addEventListener('hashchange',()=>route(location.hash.slice(1)||'articles'));
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;e.preventDefault();if(isOpen)closeA();nav(a.getAttribute('href').slice(1))});addEventListener('resize',()=>{measure();tabs()});
+new Image().src='';measure();ui();build();route();document.fonts&&document.fonts.ready.then(tabs);requestAnimationFrame(tick);
+</script></body></html>
